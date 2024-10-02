@@ -1,5 +1,7 @@
 import "./globals.css";
-import { Metadata as NextMetadata } from 'next'; // Renaming imported Metadata to avoid conflict
+import { Inter } from 'next/font/google';
+
+const inter = Inter({ subsets: ['latin'] });
 
 // Rename your local metadata object
 export const metadata = {
@@ -48,7 +50,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col">
+      <body className= {`${inter.className} min-h-screen flex flex-col`}>
         <header className="bg-white dark:bg-slate-800 shadow-sm">
           <nav className="bg-gradient-to-r from-pink-500 to-red-700 text-white container mx-auto px-4 py-4">
             <a href="/" className="text-2xl font-bold text-primary">Stylish Store</a>
