@@ -20,7 +20,7 @@ async function getServerSideProducts(searchParams) {
     ...(order && { order }),
   });
 
-  const res = await fetch(`https://next-ecommerce-api.vercel.app/products?${queryParams}&skip=${skip}&limit=${limit}`, {
+  const res = await fetch(`https://next-ecommerce-api.vercel.app/api/products?${queryParams}&skip=${skip}&limit=${limit}`, {
     next: { revalidate: 60 }, // Cache the result for 60 seconds
   });
 
@@ -36,6 +36,7 @@ export default function ProductHome() {
   const searchParams = useSearchParams();
 
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(Number(searchParams.get('page')) || 1);
