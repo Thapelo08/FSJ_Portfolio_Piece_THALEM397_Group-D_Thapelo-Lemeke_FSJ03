@@ -57,13 +57,18 @@ export const fetchProducts = cache(async (params = {}) => {
  * @returns {Promise<Object>} The product data.
  */
 export const fetchProductById = cache(async (id) => {
-  const response = await fetch(`/api/products/${id}`);
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch product');
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  try {
+    const response = await fetch(`${baseUrl}/api/products/${id}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const productData = await response.json();
+    return productData;
+  } catch (error) {
+    console.error('Error fetching product:', error);
   }
 
-  return response.json();
 });
 
 /**

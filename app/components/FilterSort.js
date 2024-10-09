@@ -34,7 +34,7 @@ export default function FilterSort({
     return (
       <div className="flex flex-wrap items-center gap-4 py-6 px-6 bg-pink-50 dark:bg-gray-900 text-amber-800 font-serif shadow-md rounded-lg">
         
-        {/* Category Filter Dropdown */}
+
         <select
           value={currentCategory}
           onChange={handleFilter}
@@ -48,7 +48,7 @@ export default function FilterSort({
           ))}
         </select>
   
-        {/* Sorting Dropdown */}
+        
         <select
           value={`${currentSortBy}-${currentSortOrder}`}
           onChange={handleSort}
