@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 /**
  * Navigate back to the previous page.
@@ -21,12 +22,33 @@ export function ProductDetail({ product }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [reviewSort, setReviewSort] = useState('date-desc');
+   const [ setProduct] = useState([]);
+
+  const router = useRouter();
+  const { id } = router.query;
 
   useEffect(() => {
-    if (product) {
+    if (product, id) {
+      setLoading(false);
+      fetchProductById(id);
+    }
+  }, [ id]);
+
+  const fetchProductById = async (productId) => {
+    try {
+      const response = await fetch(`/api/products/${productId}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch product');
+      }
+      const data = await response.json();
+      setProduct(data);
+      setLoading(false);
+    } catch (err) {
+      setError(err.message);
       setLoading(false);
     }
-  }, [product]);
+  };
+
 
   /**
    * Change to the previous image in the product gallery.
